@@ -19,9 +19,14 @@
 # Inherit from the common Open Source product configuration
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
-LOCAL_PATH := device/samsung/m51
-
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
+
+# use twrp-common for decryption
+BOARD_USES_QCOM_FBE_DECRYPTION := true
+
+PRODUCT_PACKAGES_ENG += \
+     qcom_decrypt \
+     qcom_decrypt_fbe
 
 # fastbootd
 PRODUCT_PACKAGES += \

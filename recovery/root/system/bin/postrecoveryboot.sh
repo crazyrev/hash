@@ -22,15 +22,15 @@
 # TODO: this kludge is needed to prevent issues with mounting
 # system and vendor in some zip installers and in the gui
 #
-set_read_write_partitions() {
-local Parts=("system" "vendor" "product");
-  for i in "${Parts[@]}"
-  do
-     echo "I:TWRP: setting $i to read/write" >> /tmp/recovery.log;
-     blockdev --setrw /dev/block/mapper/$i;
-  done
-}
 
-set_read_write_partitions;
-exit 0;
-#
+sleep 1
+mount -w /product > /dev/null 2>&1
+mount -w /vendor > /dev/null 2>&1
+mount -w /system_root > /dev/null 2>&1
+
+sleep 1
+umount /product > /dev/null 2>&1
+umount /vendor > /dev/null 2>&1
+umount /system_root > /dev/null 2>&1
+
+exit 0
